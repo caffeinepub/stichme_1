@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "StichMe: a mobile-responsive Uber-like home tailoring booking web app with user/tailor auth, bookings, tracking, admin dashboard, and payment placeholder using a Node.js + MongoDB stack.",
+  "architectural_notes": [
+    "Use Node.js for backend services/APIs",
+    "Use MongoDB as the primary database",
+    "UI should be mobile-responsive with a modern design"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimal stitch/needle-and-thread logo mark on transparent background (stichme-logo.dim_512x512.png)\n- Warm, modern flat illustration of a tailor measuring fabric with a client at home, no text (stichme-hero.dim_1600x900.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-authentication-using-internet-identity-and-role-based-access-control-so-that-customers-tailors-and-admins-can-access-only-their-allowed-actions-and-data",
+      "title": "Implement authentication using Internet Identity and role-based access control so that customers, tailors, and admins can access only their allowed actions and data.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-customer-facing-booking-flow-select-a-date-time-enter-an-address-choose-a-tailor-or-request-assignment-submit-a-booking-and-view-booking-details",
+      "title": "Build customer-facing booking flow: select a date/time, enter an address, choose a tailor (or request assignment), submit a booking, and view booking details.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-booking-status-tracking-with-a-clear-lifecycle-and-history-e-g-requested-accepted-in-progress-completed-plus-cancelled-allow-tailors-admins-to-update-status-according-to-permissions",
+      "title": "Implement booking status tracking with a clear lifecycle and history (e.g., Requested → Accepted → In Progress → Completed, plus Cancelled). Allow tailors/admins to update status according to permissions.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-tailor-facing-dashboard-tailor-onboarding-profile-creation-view-incoming-booking-requests-accept-decline-and-see-their-scheduled-jobs-list",
+      "title": "Build tailor-facing dashboard: tailor onboarding/profile creation, view incoming booking requests, accept/decline, and see their scheduled jobs list.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-dashboard-to-manage-users-tailors-and-bookings-view-lists-inspect-details-and-perform-administrative-actions-e-g-set-role-deactivate-account-reassign-booking-to-a-tailor",
+      "title": "Create an admin dashboard to manage users/tailors and bookings: view lists, inspect details, and perform administrative actions (e.g., set role, deactivate account, reassign booking to a tailor).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-payment-integration-placeholder-ui-to-show-estimated-price-and-a-pay-action-that-simulates-payment-without-external-providers-storing-a-payment-status-unpaid-paid-refunded-placeholder-on-the-booking",
+      "title": "Add a payment integration placeholder: UI to show estimated price and a 'Pay' action that simulates payment without external providers, storing a payment status (Unpaid/Paid/Refunded placeholder) on the booking.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-modern-mobile-first-responsive-ui-for-stichme-across-all-main-screens-auth-customer-booking-booking-details-tailor-dashboard-admin-dashboard-using-a-cohesive-design-system",
+      "title": "Implement a modern, mobile-first responsive UI for StichMe across all main screens (auth, customer booking, booking details, tailor dashboard, admin dashboard) using a cohesive design system.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-distinct-visual-theme-for-stichme-color-palette-typography-spacing-and-component-styling-and-enforce-it-consistently-across-the-app",
+      "title": "Define and apply a distinct visual theme for StichMe (color palette, typography, spacing, and component styling) and enforce it consistently across the app.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-brand-assets-to-the-frontend-and-display-them-in-the-ui-e-g-app-logo-in-header-login-and-a-simple-hero-illustration-on-the-landing-screen-store-assets-under-frontend-public-assets-generated",
+      "title": "Add generated static brand assets to the frontend and display them in the UI (e.g., app logo in header/login and a simple hero/illustration on the landing screen). Store assets under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "User signup/login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Tailor signup/login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Booking system with date/time selection",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Address input for bookings",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Booking status tracking",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Admin dashboard",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Payment integration placeholder",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Mobile-responsive modern UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Node.js backend",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "MongoDB database integration",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Create the StichMe data model and persistence in the Motoko backend for: accounts (with role: customer, tailor, admin), tailor profiles, bookings, booking status history, and saved customer addresses.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "StichMe",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

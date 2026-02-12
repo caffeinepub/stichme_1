@@ -1,0 +1,195 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-authentication-using-internet-identity-and-role-based-access-control-so-that-customers-tailors-and-admins-can-access-only-their-allowed-actions-and-data",
+      "featureTitle": "Implement authentication using Internet Identity and role-based access control so that customers, tailors, and admins can access only their allowed actions and data.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/hooks/useCurrentUser.ts",
+        "frontend/src/main.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-customer-facing-booking-flow-select-a-date-time-enter-an-address-choose-a-tailor-or-request-assignment-submit-a-booking-and-view-booking-details",
+      "featureTitle": "Build customer-facing booking flow: select a date/time, enter an address, choose a tailor (or request assignment), submit a booking, and view booking details.",
+      "files": [
+        "frontend/src/components/addresses/SavedAddressPicker.tsx",
+        "frontend/src/pages/booking/BookingDetailsPage.tsx",
+        "frontend/src/pages/customer/CustomerBookingsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-booking-status-tracking-with-a-clear-lifecycle-and-history-e-g-requested-accepted-in-progress-completed-plus-cancelled-allow-tailors-admins-to-update-status-according-to-permissions",
+      "featureTitle": "Implement booking status tracking with a clear lifecycle and history (e.g., Requested → Accepted → In Progress → Completed, plus Cancelled). Allow tailors/admins to update status according to permissions.",
+      "files": [
+        "frontend/src/components/bookings/BookingStatusActions.tsx",
+        "frontend/src/components/bookings/BookingStatusTimeline.tsx",
+        "frontend/src/pages/booking/BookingDetailsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-tailor-facing-dashboard-tailor-onboarding-profile-creation-view-incoming-booking-requests-accept-decline-and-see-their-scheduled-jobs-list",
+      "featureTitle": "Build tailor-facing dashboard: tailor onboarding/profile creation, view incoming booking requests, accept/decline, and see their scheduled jobs list.",
+      "files": [
+        "frontend/src/pages/tailor/TailorDashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-an-admin-dashboard-to-manage-users-tailors-and-bookings-view-lists-inspect-details-and-perform-administrative-actions-e-g-set-role-deactivate-account-reassign-booking-to-a-tailor",
+      "featureTitle": "Create an admin dashboard to manage users/tailors and bookings: view lists, inspect details, and perform administrative actions (e.g., set role, deactivate account, reassign booking to a tailor).",
+      "files": [
+        "frontend/src/components/admin/AdminBookingsPanel.tsx",
+        "frontend/src/components/admin/AdminTailorsPanel.tsx",
+        "frontend/src/components/admin/AdminUsersPanel.tsx",
+        "frontend/src/components/auth/AccessDeniedScreen.tsx",
+        "frontend/src/pages/admin/AdminDashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-payment-integration-placeholder-ui-to-show-estimated-price-and-a-pay-action-that-simulates-payment-without-external-providers-storing-a-payment-status-unpaid-paid-refunded-placeholder-on-the-booking",
+      "featureTitle": "Add a payment integration placeholder: UI to show estimated price and a 'Pay' action that simulates payment without external providers, storing a payment status (Unpaid/Paid/Refunded placeholder) on the booking.",
+      "files": [
+        "frontend/src/components/payments/PaymentSection.tsx",
+        "frontend/src/pages/booking/BookingDetailsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-modern-mobile-first-responsive-ui-for-stichme-across-all-main-screens-auth-customer-booking-booking-details-tailor-dashboard-admin-dashboard-using-a-cohesive-design-system",
+      "featureTitle": "Implement a modern, mobile-first responsive UI for StichMe across all main screens (auth, customer booking, booking details, tailor dashboard, admin dashboard) using a cohesive design system.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-define-and-apply-a-distinct-visual-theme-for-stichme-color-palette-typography-spacing-and-component-styling-and-enforce-it-consistently-across-the-app",
+      "featureTitle": "Define and apply a distinct visual theme for StichMe (color palette, typography, spacing, and component styling) and enforce it consistently across the app.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/customer/CustomerBookingsPage.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-brand-assets-to-the-frontend-and-display-them-in-the-ui-e-g-app-logo-in-header-login-and-a-simple-hero-illustration-on-the-landing-screen-store-assets-under-frontend-public-assets-generated",
+      "featureTitle": "Add generated static brand assets to the frontend and display them in the UI (e.g., app logo in header/login and a simple hero/illustration on the landing screen). Store assets under frontend/public/assets/generated.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/pages/marketing/LandingSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

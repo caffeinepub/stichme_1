@@ -1,0 +1,319 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "StichMe — Mobile-responsive home tailoring booking app (frontend)",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Implement Internet Identity sign-in/out UI, role-aware navigation, and frontend authorization guarding.",
+      "acceptanceCriteria": [
+        "Users can sign in/out with Internet Identity from the UI.",
+        "A signed-in principal experience is role-aware (customer/tailor/admin) with restricted navigation and guarded routes.",
+        "On logout, cached application data (including cached user profile and role) is cleared and UI returns to a signed-out state."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the main application shell including top navigation, sign-in/out controls, role-aware entry points, and guarded sections. Use the authorization component guidance (Internet Identity + profile setup + access denied handling) to ensure correct auth flows; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/router.ts",
+          "operation": "create",
+          "description": "Add a minimal client-side router (hash-based) to support required views (customer booking, booking details, tailor dashboard, admin dashboard) and route guards based on fetched role/admin state. Use the authorization component guidance for AccessDeniedScreen patterns; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Implement a reusable Login/Logout button wired to useInternetIdentity, and clear React Query cache on logout per authorization component guidance; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Add first-login profile setup (name + primary app role selection customer/tailor) using getCallerUserProfile/saveCallerUserProfile patterns from the authorization component, and prevent modal flash using the recommended query gating; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUser.ts",
+          "operation": "create",
+          "description": "Create a hook that composes useActor + react-query calls to fetch caller user profile, caller role, and admin flag, and exposes derived UI permissions. Use the authorization component guidance for handling trap/unauthorized errors gracefully; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Ensure the new App.tsx is the root shell and that the app mounts with QueryClientProvider and InternetIdentityProvider as required for Internet Identity and role-based UI flows. Use the authorization component logout cache-clearing guidance; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build customer booking flow UI: create booking with date/time + address + tailor choice, list bookings, and booking details navigation.",
+      "acceptanceCriteria": [
+        "Customer can create a booking with date/time and address via the UI and it is stored in the backend.",
+        "Customer can view a list of their bookings and open a booking details page.",
+        "UI prevents submitting a booking with missing required fields (date/time and address)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/customer/CustomerBookingsPage.tsx",
+          "operation": "create",
+          "description": "Create the customer main screen combining: booking creation form (date/time, address, optional tailor selection/request assignment) and a list of the customer's bookings. Use shadcn-ui components (e.g., Card, Button, Input, Textarea, Select, Dialog) to implement accessible, consistent form controls and layout; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useBookings.ts",
+          "operation": "create",
+          "description": "Add react-query hooks for customer bookings list, booking creation mutation, and required supporting queries (tailor profiles list, saved addresses). Ensure validations are enforced client-side before calling backend. Use authorization component guidance for handling unauthenticated state (disable queries until actor is ready); verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/addresses/SavedAddressPicker.tsx",
+          "operation": "create",
+          "description": "Add a saved-address picker/manager for customers (select an existing saved address, add new, delete) that integrates into the booking form. Use shadcn-ui (Select, Dialog, AlertDialog, Button) for accessible UX; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/booking/BookingDetailsPage.tsx",
+          "operation": "create",
+          "description": "Create a booking details page (read-only customer view for core details: appointment date/time, address, tailor assignment, status, payment section placeholder). Use shadcn-ui components for structured sections and loading/empty states; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/router.ts",
+          "operation": "modify",
+          "description": "Wire customer routes into the router: customer bookings page and booking details route (including extracting bookingId from the hash path) with role guard for customers and safe fallback for unauthorized access. Use authorization component guidance for access denied screen; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Display booking status lifecycle and history in booking details, and provide status update controls for tailors/admins per permissions.",
+      "acceptanceCriteria": [
+        "Customer can view the current status and history in the booking details UI.",
+        "Tailor can update status only for bookings assigned to them; admin can update any booking status."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/bookings/BookingStatusTimeline.tsx",
+          "operation": "create",
+          "description": "Implement a status timeline component that renders current status plus ordered status-change history with timestamps. Use shadcn-ui (Badge, Card, Separator) for clear, mobile-friendly presentation; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/bookings/BookingStatusActions.tsx",
+          "operation": "create",
+          "description": "Add a role-aware status update control (Requested/Accepted/In Progress/Completed/Cancelled) that is only shown/enabled when the signed-in user is permitted (tailor for their bookings; admin for any). Use shadcn-ui (Button, Select, AlertDialog) for accessible actions and confirmations; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/booking/BookingDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Integrate the status timeline and status actions into booking details, including permission checks derived from current user role/admin flag and (when relevant) matching tailor assignment. Use authorization component guidance for comparing principals/ownership in UI; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useBookings.ts",
+          "operation": "modify",
+          "description": "Add react-query hooks/mutations for fetching booking history and updating booking status, with cache invalidation to refresh booking details and lists after changes. Use authorization component guidance for handling trap/unauthorized errors in UI; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build tailor dashboard UI: onboard/create profile, edit profile, view relevant booking requests, accept/decline, and view scheduled jobs.",
+      "acceptanceCriteria": [
+        "A signed-in tailor can create/update a tailor profile (e.g., name, service area text, basic description).",
+        "Tailor can see bookings relevant to them (assigned or requested) and can accept/decline where applicable.",
+        "Tailor can view a list of upcoming bookings with date/time and address summary."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/tailor/TailorDashboardPage.tsx",
+          "operation": "create",
+          "description": "Create the tailor dashboard with sections for profile onboarding/edit and bookings (incoming requests + scheduled). Use shadcn-ui (Tabs, Card, Form inputs, Button) for an organized, mobile-first layout; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/tailor/TailorProfileForm.tsx",
+          "operation": "create",
+          "description": "Implement the tailor profile create/update form (name, address/service area text, bio). Use shadcn-ui inputs and validation messages in English; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/tailor/TailorBookingsList.tsx",
+          "operation": "create",
+          "description": "Render tailor-relevant bookings with quick actions (accept/decline where applicable) and links to booking details. Use shadcn-ui (Table or Card list, Button) to keep actions visible on mobile; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useTailor.ts",
+          "operation": "create",
+          "description": "Add react-query hooks for: fetching my tailor profile, creating/updating profile, fetching my tailor bookings, and accepting bookings; include cache invalidation after mutations. Use authorization component guidance for authenticated query gating; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/router.ts",
+          "operation": "modify",
+          "description": "Wire the tailor dashboard route into the router with role guard for tailors (and admin if desired for inspection), and ensure booking details navigation works from tailor views. Use authorization component guidance for access denied; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Create an admin-only dashboard UI to view/manage users, tailors, and bookings with basic filtering/search and administrative actions.",
+      "acceptanceCriteria": [
+        "Admin-only UI route exists and is inaccessible to non-admin users.",
+        "Admin can view users, tailors, and bookings lists with basic filtering/search (at minimum by status).",
+        "Admin actions update backend state and are reflected immediately in the UI."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/AdminDashboardPage.tsx",
+          "operation": "create",
+          "description": "Build the admin dashboard (admin-only) with tabs/sections for Users, Tailors, and Bookings, including basic filtering (at minimum by booking status) and details inspection. Use shadcn-ui (Tabs, Table, Dialog, Badge, Select) for a cohesive management UI; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/admin/AdminUsersPanel.tsx",
+          "operation": "create",
+          "description": "Implement users list + details and admin actions (e.g., assign role). Use shadcn-ui (Table, Dialog, Select, Button) and show authorization error messages in English; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/admin/AdminTailorsPanel.tsx",
+          "operation": "create",
+          "description": "Implement tailors list + activate/deactivate actions and details inspection. Use shadcn-ui components for actions and confirmations; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/admin/AdminBookingsPanel.tsx",
+          "operation": "create",
+          "description": "Implement bookings list with status filter and admin actions such as reassign booking to a tailor, set estimated price, and update booking/payment statuses. Use shadcn-ui (Select, Dialog, Input, Button) for controlled edits; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdmin.ts",
+          "operation": "create",
+          "description": "Add react-query hooks for admin data (users, tailors, all bookings) and admin mutations (assign user role, activate/deactivate tailor, assign tailor to booking, set estimated price, update booking/payment/status). Ensure cache invalidation refreshes UI immediately after each action. Use authorization component guidance for trap handling and showing access denied; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/AccessDeniedScreen.tsx",
+          "operation": "create",
+          "description": "Create an AccessDeniedScreen used by guarded routes (especially admin) to clearly explain lack of permissions and provide a navigation link back. Use authorization component guidance for access control UI; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/router.ts",
+          "operation": "modify",
+          "description": "Wire the admin dashboard route into the router and enforce an admin-only guard using isCallerAdmin/getCallerUserRole-derived state, redirecting or rendering AccessDeniedScreen for non-admins. Use authorization component guidance; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add booking payment placeholder UI with estimated price display and simulated 'Mark as Paid' action, reflecting stored payment status.",
+      "acceptanceCriteria": [
+        "Booking details UI shows a payment section with a clear placeholder message (English) and a simulated 'Mark as Paid' action.",
+        "No third-party payment API calls are made."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/payments/PaymentSection.tsx",
+          "operation": "create",
+          "description": "Create a payment placeholder section for booking details showing estimated price (if present), current payment status (Unpaid/Paid/Refunded placeholder), and a simulated action (e.g., Mark as Paid) with clear English placeholder text indicating no real payments are processed. Use shadcn-ui (Card, Badge, Button, Alert) for clarity; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/booking/BookingDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Integrate PaymentSection into booking details and render status updates immediately after actions via cache invalidation/refetch. Use shadcn-ui to keep primary actions visible on mobile; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useBookings.ts",
+          "operation": "modify",
+          "description": "Add react-query mutations for updating payment status and (where relevant for admin) setting estimated price, with proper cache invalidation for booking details and lists. Verify no external payment calls are introduced; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement a modern, mobile-first responsive UI across all main screens with accessible forms and role-based navigation.",
+      "acceptanceCriteria": [
+        "Layouts adapt cleanly to small screens (no horizontal scrolling; key actions remain visible).",
+        "Forms use accessible labels and validation messages in English.",
+        "Navigation includes clear entry points for Customer, Tailor, and Admin experiences based on signed-in role."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create a reusable layout (header + main container) with mobile-first spacing, responsive navigation, and consistent page structure for customer/tailor/admin views. Use shadcn-ui (Navigation/Menu patterns, Sheet/Drawer for mobile) to keep navigation accessible; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "create",
+          "description": "Add a responsive header that includes brand logo, role-aware navigation links, and the LoginButton. Use shadcn-ui (Button, DropdownMenu, Sheet) for mobile navigation; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Use AppLayout across all routes/screens, ensure authenticated gating (no application data shown when signed out), and present clear entry points for Customer/Tailor/Admin based on role/admin flag. Use authorization component guidance for gating application data behind authentication; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add global Tailwind base layers and app-wide responsive defaults (typography, spacing, focus outlines), ensuring no horizontal scrolling on mobile and consistent form styling. Keep styles cohesive with shadcn-ui variables; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Define and apply a cohesive StichMe theme (non-blue/purple primary palette) consistently across the app.",
+      "acceptanceCriteria": [
+        "App uses one consistent theme (colors, typography, and component styling) across all pages.",
+        "Theme avoids default/unstyled appearance and is visually coherent.",
+        "Theme does not rely on blue/purple as the primary palette."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define StichMe theme tokens using CSS variables (primary palette in warm neutrals/greens/ambers; avoid blue/purple as primary), set typography defaults, and ensure consistent component styling across pages (shadcn-ui theme compatibility). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions as needed to support the StichMe palette and consistent spacing/typography choices while keeping existing shadcn-ui variable mapping intact. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui/ThemeShowcase.tsx",
+          "operation": "create",
+          "description": "Create a small internal-only component used within existing screens (not a new route) to visually validate theme consistency for buttons, inputs, badges, and cards during development. Use shadcn-ui components to confirm styling cohesion; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/customer/CustomerBookingsPage.tsx",
+          "operation": "modify",
+          "description": "Apply theme-consistent components and spacing (cards, headings, primary actions) so the page matches the StichMe design system. Use shadcn-ui components consistently; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Add generated static brand assets and display logo/hero illustration in the UI from frontend/public/assets/generated.",
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced by the UI.",
+        "Logo appears crisply on mobile and desktop without layout shifts.",
+        "No image assets are served from the backend canister."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/stichme-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated logo asset at frontend/public/assets/generated/stichme-logo.dim_512x512.png and ensure it is used as a static frontend asset (not fetched from backend)."
+        },
+        {
+          "path": "frontend/public/assets/generated/stichme-hero.dim_1600x900.png",
+          "operation": "create",
+          "description": "Add the generated hero illustration asset at frontend/public/assets/generated/stichme-hero.dim_1600x900.png and ensure it is used as a static frontend asset (not fetched from backend)."
+        },
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "modify",
+          "description": "Reference and render the logo image from frontend/public/assets/generated/stichme-logo.dim_512x512.png in the header (and auth area if present) with stable sizing to prevent layout shifts. Use shadcn-ui layout primitives where helpful; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/LandingSection.tsx",
+          "operation": "create",
+          "description": "Create a landing/intro section component (embedded into an existing required screen rather than adding a new route) that displays the hero illustration from frontend/public/assets/generated/stichme-hero.dim_1600x900.png along with brief app value proposition and next-step CTAs. Use shadcn-ui components for a modern, responsive hero layout; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire LandingSection into the signed-out state (or the customer entry screen) so the hero/branding is visible without introducing a new top-level route. Ensure assets are referenced as static frontend files; verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

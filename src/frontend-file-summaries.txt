@@ -1,0 +1,23 @@
+{
+  "frontend/src/App.tsx": "Main application component with hash-based routing, authentication flow, profile setup modal, and role-based navigation for customer/tailor/admin views.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including bookings, tailors, addresses, payments, and admin functions with proper cache invalidation.",
+  "frontend/src/hooks/useCurrentUser.ts": "Custom hook that fetches and exposes current user profile, admin status, and loading states for authorization checks.",
+  "frontend/src/components/layout/Header.tsx": "Responsive header component with logo, role-aware navigation links, login button, and mobile menu drawer with proper NavItem type definition.",
+  "frontend/src/components/auth/LoginButton.tsx": "Login/logout button component integrated with Internet Identity and query cache clearing on logout.",
+  "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup with name input and role selection (customer/tailor).",
+  "frontend/src/components/auth/AccessDeniedScreen.tsx": "Access denied screen component displayed when users attempt to access unauthorized routes.",
+  "frontend/src/pages/marketing/LandingSection.tsx": "Landing page with hero section, feature cards, and how-it-works explanation for unauthenticated users.",
+  "frontend/src/pages/customer/CustomerBookingsPage.tsx": "Customer dashboard with booking creation form, saved address integration, and list of customer bookings.",
+  "frontend/src/components/addresses/SavedAddressPicker.tsx": "Dialog component for managing saved addresses with add, select, and delete functionality.",
+  "frontend/src/pages/booking/BookingDetailsPage.tsx": "Detailed booking view with appointment info, status timeline, status actions, and payment section.",
+  "frontend/src/components/bookings/BookingStatusTimeline.tsx": "Timeline component displaying booking status history with timestamps and visual indicators.",
+  "frontend/src/components/bookings/BookingStatusActions.tsx": "Status update controls for tailors/admins with validation of allowed status transitions using BookingStatus enum values from backend.",
+  "frontend/src/components/payments/PaymentSection.tsx": "Payment placeholder section showing estimated price, payment status, and simulated payment actions.",
+  "frontend/src/pages/tailor/TailorDashboardPage.tsx": "Tailor dashboard with profile management, incoming booking requests, and active bookings list.",
+  "frontend/src/pages/admin/AdminDashboardPage.tsx": "Admin dashboard with overview stats and tabs for managing bookings, tailors, and users.",
+  "frontend/src/components/admin/AdminUsersPanel.tsx": "Admin panel displaying all users in a table with their profiles and roles.",
+  "frontend/src/components/admin/AdminTailorsPanel.tsx": "Admin panel for managing tailors with activate/deactivate actions.",
+  "frontend/src/components/admin/AdminBookingsPanel.tsx": "Admin panel for managing all bookings with filtering, tailor assignment, and price setting.",
+  "frontend/src/index.css": "Global styles with warm earth-tone OKLCH color system for light and dark modes, avoiding blue/purple palette.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom warm color palette, Inter font, and extended design tokens."
+}

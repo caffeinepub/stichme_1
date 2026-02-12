@@ -1,0 +1,205 @@
+{
+  "kind": "build_request",
+  "title": "StichMe — Mobile-responsive home tailoring booking app (Uber-like)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create the StichMe data model and persistence in the Motoko backend for: accounts (with role: customer, tailor, admin), tailor profiles, bookings, booking status history, and saved customer addresses.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Build a mobile responsive web app called StichMe.\n\nIt is an Uber-like home tailoring booking app.\n\nFeatures:\n- User signup/login\n- Tailor signup/login\n- Booking system with date/time selection\n- Address input\n- Booking status tracking\n- Admin dashboard\n- Payment integration placeholder"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes typed APIs to create/read/update: users, tailors, bookings, and booking status changes.",
+        "Bookings persist across page reloads and canister upgrades within the same deployment.",
+        "Each booking stores: customer principal, tailor principal (assigned), appointment date/time, address fields, and current status."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement authentication using Internet Identity and role-based access control so that customers, tailors, and admins can access only their allowed actions and data.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "- User signup/login\n- Tailor signup/login\n- Admin dashboard"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can sign in/out with Internet Identity from the UI.",
+        "Backend rejects unauthorized calls (e.g., non-admin cannot access admin APIs; customers cannot change other users’ bookings).",
+        "A signed-in principal can be associated with exactly one primary role (customer or tailor) and admins are restricted to an allowlist configured in the backend."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build customer-facing booking flow: select a date/time, enter an address, choose a tailor (or request assignment), submit a booking, and view booking details.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "- Booking system with date/time selection\n- Address input"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Customer can create a booking with date/time and address via the UI and it is stored in the backend.",
+        "Customer can view a list of their bookings and open a booking details page.",
+        "UI prevents submitting a booking with missing required fields (date/time and address)."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement booking status tracking with a clear lifecycle and history (e.g., Requested → Accepted → In Progress → Completed, plus Cancelled). Allow tailors/admins to update status according to permissions.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "- Booking status tracking"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each booking has a current status and an ordered status-change history with timestamps.",
+        "Customer can view the current status and history in the booking details UI.",
+        "Tailor can update status only for bookings assigned to them; admin can update any booking status."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Build tailor-facing dashboard: tailor onboarding/profile creation, view incoming booking requests, accept/decline, and see their scheduled jobs list.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "- Tailor signup/login\n- Booking system with date/time selection"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A signed-in tailor can create/update a tailor profile (e.g., name, service area text, basic description).",
+        "Tailor can see bookings relevant to them (assigned or requested) and can accept/decline where applicable.",
+        "Tailor can view a list of upcoming bookings with date/time and address summary."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Create an admin dashboard to manage users/tailors and bookings: view lists, inspect details, and perform administrative actions (e.g., set role, deactivate account, reassign booking to a tailor).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "- Admin dashboard"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin-only UI route exists and is inaccessible to non-admin users.",
+        "Admin can view users, tailors, and bookings lists with basic filtering/search (at minimum by status).",
+        "Admin actions update backend state and are reflected immediately in the UI."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add a payment integration placeholder: UI to show estimated price and a 'Pay' action that simulates payment without external providers, storing a payment status (Unpaid/Paid/Refunded placeholder) on the booking.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "- Payment integration placeholder"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Booking details UI shows a payment section with a clear placeholder message (English) and a simulated 'Mark as Paid' action.",
+        "Backend stores and returns payment status per booking.",
+        "No third-party payment API calls are made."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement a modern, mobile-first responsive UI for StichMe across all main screens (auth, customer booking, booking details, tailor dashboard, admin dashboard) using a cohesive design system.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Build a mobile responsive web app called StichMe.\n...\n- Use modern UI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Layouts adapt cleanly to small screens (no horizontal scrolling; key actions remain visible).",
+        "Forms use accessible labels and validation messages in English.",
+        "Navigation includes clear entry points for Customer, Tailor, and Admin experiences based on signed-in role."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Define and apply a distinct visual theme for StichMe (color palette, typography, spacing, and component styling) and enforce it consistently across the app.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Use modern UI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App uses one consistent theme (colors, typography, and component styling) across all pages.",
+        "Theme avoids default/unstyled appearance and is visually coherent.",
+        "Theme does not rely on blue/purple as the primary palette."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Add generated static brand assets to the frontend and display them in the UI (e.g., app logo in header/login and a simple hero/illustration on the landing screen). Store assets under frontend/public/assets/generated.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Build a mobile responsive web app called StichMe."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced by the UI.",
+        "Logo appears crisply on mobile and desktop without layout shifts.",
+        "No image assets are served from the backend canister."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must be implemented as a single Motoko actor (no Node.js backend).",
+    "Do not use MongoDB or any external database; persist data in canister stable storage.",
+    "Authentication must use Internet Identity (no third-party auth providers).",
+    "Do not edit files under frontend/src/components/ui or other immutable paths listed by the platform."
+  ],
+  "nonGoals": [
+    "Implementing a real payment processor integration (Stripe/PayPal/etc.).",
+    "Building a Node.js + MongoDB stack (requested by user, but not supported on this platform).",
+    "Real-time driver-style tracking with live location updates/maps."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimal stitch/needle-and-thread logo mark on transparent background (stichme-logo.dim_512x512.png)",
+      "Warm, modern flat illustration of a tailor measuring fabric with a client at home, no text (stichme-hero.dim_1600x900.png)"
+    ],
+    "edits": []
+  }
+}

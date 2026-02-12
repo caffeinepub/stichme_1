@@ -1,0 +1,68 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-12T17:35:11.871Z",
+  "summary": "Diff adds a Motoko backend actor with booking/tailor/user/address/payment types plus a new React frontend with Internet Identity auth, role-guarded routes, customer/tailor/admin pages/components, booking status history UI, saved-address picker, and a payment placeholder section. One key acceptance criterion (stable persistence across canister upgrades) is not evidenced in the backend diff snippet. Admin user-management actions (set role/deactivate) are also not evidenced in the shown UI components.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Bookings persist across canister upgrades within the same deployment (stable storage persistence).",
+      "reason": "The backend snippet shows in-memory `Map.empty` collections (`bookings`, `bookingHistory`, etc.) and a non-stable `nextId` counter, but no `stable` variables and no `preupgrade`/`postupgrade` logic is evidenced to serialize/restore state across upgrades.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Admin dashboard includes administrative actions on users (e.g., set role, deactivate account).",
+      "reason": "The provided Admin users panel renders a read-only table (no buttons/controls) and does not show any role-setting or user-deactivation actions.",
+      "evidence": [
+        "frontend/src/components/admin/AdminUsersPanel.tsx",
+        "frontend/src/pages/admin/AdminDashboardPage.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Secret URL-parameter-based admin initialization token (`caffeineAdminToken`) used to initialize access control on the actor.",
+      "reason": "BuildRequest specifies admins must be restricted to an allowlist configured in the backend, but does not request a secret token passed via URL parameters for initializing admin/access control state.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    }
+  ],
+  "confidence": 0.68,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/addresses/SavedAddressPicker.tsx",
+    "frontend/src/components/admin/AdminBookingsPanel.tsx",
+    "frontend/src/components/admin/AdminTailorsPanel.tsx",
+    "frontend/src/components/admin/AdminUsersPanel.tsx",
+    "frontend/src/components/auth/AccessDeniedScreen.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/bookings/BookingStatusActions.tsx",
+    "frontend/src/components/bookings/BookingStatusTimeline.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/components/payments/PaymentSection.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCurrentUser.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/admin/AdminDashboardPage.tsx",
+    "frontend/src/pages/booking/BookingDetailsPage.tsx",
+    "frontend/src/pages/customer/CustomerBookingsPage.tsx",
+    "frontend/src/pages/marketing/LandingSection.tsx",
+    "frontend/src/pages/tailor/TailorDashboardPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}
